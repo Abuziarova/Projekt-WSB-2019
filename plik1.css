@@ -10,8 +10,10 @@ form{border-style: groove;;
 border-color: white;
 width: 200px;
 margin-left: 80%;
-color: #FFFBF6}
+color: #FFFBF6;
+border-radius: 10px;}
 
 h1{text-align: center;
-font-family:century;
-color:#FFF0FE}
+font-family: fantasy;
+color:#FFF0FE;
+font-size: 350%;}
