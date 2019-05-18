@@ -22,7 +22,7 @@ else {
     $user=$wiersz['login'];
 
     $rezultat->free_result();
-echo "zalogowałes się";
+    echo "zalogowałes się";
     echo $user;
     }
     else {
