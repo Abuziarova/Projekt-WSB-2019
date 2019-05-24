@@ -26,8 +26,9 @@ if($polaczenie=mysqli_connect($host,$db_user,$db_password,$db_name))
       $user= $wiersz['imie'];
 
       mysqli_free_result($wynik);
-include('./nauka.php');
-      // header('Locacion: ./nauka.php');
+        header("Location: ./nauka.php");
+
+      
       }
       else { echo "uzytkownik nie istnieje";}
 

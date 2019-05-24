@@ -6,7 +6,7 @@
   </head>
   <body>
     <?php
-echo "Cześć,".$user."!<br>Jestem na stronie nauki"
+echo "Cześć,".$user;
 
      ?>
   </body>
