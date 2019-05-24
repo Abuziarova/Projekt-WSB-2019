@@ -1,37 +1,62 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Strona logowania</title>
+  </head>
+  <body>
+
 <?php
- require_once "./connect.php";
 
- $polaczenie = @new mysqli($host,$db_user,$db_password,$db_name);
+require_once "./connect.php";
 
- if($polaczenie->connect_errno!=0)
- {
-   echo "Error: ".$polaczenie->connect_errno;
- }
-else {
- $login = $_POST['login'];
- $haslo = $_POST['haslo'];
 
-  $sql = "select * from uzytkownicy where login = '$login' and haslo='$haslo'";
+if($polaczenie=mysqli_connect($host,$db_user,$db_password,$db_name))
+{
+  $login1 = $_POST['login'];
+  $haslo1 = $_POST['haslo'];
 
-  if($rezultat=@$polaczenie->query($sql))
-  {
-    $ilu_userow=$rezultat->num_rows;
-    if($ilu_userow>0)
+  $sql="select * from users where login = '$login1' and haslo='$haslo1'";
+    if($wynik = mysqli_query($polaczenie,$sql))
     {
-    $wiersz=$rezultat->fetch_assoc();
-    $user=$wiersz['login'];
+      $row_count = mysqli_num_rows($wynik);
 
-    $rezultat->free_result();
-    echo "zalogowałes się";
-    echo $user;
+      if($row_count>0)
+      {$wiersz=mysqli_fetch_assoc($wynik);
+      $user= $wiersz['imie'];
+
+      mysqli_free_result($wynik);
+include('./nauka.php');
+      // header('Locacion: ./nauka.php');
+      }
+      else { echo "uzytkownik nie istnieje";}
+
     }
-    else {
-    echo "nie udało sie :(";
-    }
-  }
+    else{echo "nie prawidłowe zapytanie";}
 
 
-$polaczenie->close();
+mysqli_close($polaczenie);
 }
+else{echo "błąd połączenia z bazą" . mysqli_connect_error();}
+
+
+ // {echo "połączenie z serwerem,";}
+ // else{echo "błąb połaczenia z serwerem";}
+ //
+ // if(mysqli_select_db($polaczenie,'uzytkownicy'))
+ // {echo 'połączenie z bazą uzytkownicy';}
+ // else{echo "błąd połaczenia z bazą uzytkownicy;";}
+ //
+ // $sql = "SELECT `imie` FROM `users` WHERE `login`=\'kot\'";
+ //
+ // if($wynik = mysqli_query($polaczenie,$sql))
+ // {echo "Cześć, ", $wynik;}
+ // else {echo "błędne zapytanie";}
+
 
  ?>
+
+
+
+  </body>
+</html>
