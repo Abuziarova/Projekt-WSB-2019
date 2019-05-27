@@ -1,3 +1,6 @@
+<?php session_start(); ?>
+
+
 <!DOCTYPE html>
 <html lang="pl" dir="ltr">
   <head>
@@ -6,7 +9,11 @@
   </head>
   <body>
     <?php
-echo "Cześć,".$user;
+
+
+echo "<p>Cześć,".$_SESSION['user']."!";
+echo "<p> Uczysz się już ".$_SESSION['liczba_dni']." dni!" ;
+unset($_SESSION['blad']);
 
      ?>
   </body>

@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -13,9 +15,11 @@
       <input type="submit" name="" value="Sign in">
       <hr>
       <input type="submit" name="" value="Sign up">
+   </form>
 
-
-    </form>
+   <?php
+if(isset($_SESSION['blad']))
+   echo $_SESSION['blad']; ?>
     <h1>English for IT</h1>
 
   </body>
