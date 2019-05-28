@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start();
+if((isset($_SESSION['zalogowany']))&&($_SESSION['zalogowany']==true))
+{header("Location: ./nauka.php");
+  exit();
+}
+ ?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -10,7 +15,7 @@
   <body>
 
     <form class="" action="./login.php" method="post">
-      <p>Login:</p><input type="text" name="login" >
+      <p>Login:</p><input type="text" name="login" pattern="[A-Za-z0-9]+" >
       <p>Password:</p><input type="password" name="haslo" ><br><br>
       <?php
    if(isset($_SESSION['blad']))
