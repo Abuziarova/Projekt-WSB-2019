@@ -15,14 +15,16 @@ if((isset($_SESSION['zalogowany']))&&($_SESSION['zalogowany']==true))
   <body>
 
     <form class="" action="./login.php" method="post">
-      <p>Login:</p><input type="text" name="login" pattern="[A-Za-z0-9]+" >
+      <p>Login:</p><input type="text" name="login" pattern="[A-Za-z0-9]+" title="Używaj tylko litery i cyfry!" >
       <p>Password:</p><input type="password" name="haslo" ><br><br>
       <?php
    if(isset($_SESSION['blad']))
       echo $_SESSION['blad']; ?><br>
+
+
       <input type="submit" name="" value="Sign in">
       <hr>
-      <input type="submit" name="" value="Sign up">
+    <a href="rejestracja.php">Załóż konto!</a>
    </form>
 
 
