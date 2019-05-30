@@ -25,6 +25,8 @@ if((isset($_SESSION['zalogowany']))&&($_SESSION['zalogowany']==true))
       <input type="submit" name="" value="Sign in">
       <hr>
     <a href="rejestracja.php">Załóż konto!</a>
+
+
    </form>
 
 
