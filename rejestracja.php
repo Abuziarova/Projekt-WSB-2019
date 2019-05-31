@@ -43,6 +43,16 @@ if(isset($_POST['email']))
            $_SESSION['e_nick']="Ten nick już jest zajęty.Wybierz inny.";
           }
 
+          $sekret = "6LftVaYUAAAAAIVz17e8TG3xIXFkbko9hridOu2E";
+          $sprawdz = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&responce='.$_POST['g-recaptcha-response']);
+          $odp=json_decode($sprawdz);
+
+          if($odp->success){echo "jest ok!";}
+          else
+          {$rejestracja=false;
+           $_SESSION['e_bot']="Potwierdź że jesteś człowiekiem";
+          }
+
           if ($rejestracja==true)
           {
             if(mysqli_query($polaczenie,"insert into users values(null,'$nick','$haslo_hash','$e_mail',0)"))
@@ -66,16 +76,7 @@ if(isset($_POST['email']))
 
   }
 
- $sekret = "6LftVaYUAAAAAIVz17e8TG3xIXFkbko9hridOu2E";
-  $sprawdz = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&responce='.$_POST['g-recaptcha-response']);
-  $odp=json_decode($sprawdz);
 
-  if($odp->success){echo "jest ok!";}
-  else
-  {$rejestracja=false;
-   $_SESSION['e_bot']="Potwierdź że jesteś człowiekiem";
-
-  }
 
 }
 
