@@ -29,7 +29,7 @@ if($polaczenie=mysqli_connect($host,$db_user,$db_password,$db_name))
             if(password_verify($haslo1,$wiersz['haslo']))
               { $_SESSION['zalogowany']=true;
                 $_SESSION['id']=$wiersz['id'];
-                $_SESSION['user']= $wiersz['imie'];
+                $_SESSION['user']= $wiersz['login'];
                 $_SESSION['liczba_dni']= $wiersz['liczba_dni'];
 
                 mysqli_free_result($wynik);
