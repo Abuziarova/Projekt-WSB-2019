@@ -3,15 +3,38 @@ if(isset($_POST['email']))
 {
   $rejestracja=true;
   $nick=$_POST['nick'];
+
+  if (ctype_alnum($nick)==false)
+  		{
+  			$wszystko_OK=false;
+  			$_SESSION['e_nick']="Nick może składać się tylko z liter i cyfr (bez polskich znaków)";
+  		}
+  $e_mail=$_POST['email'];
+  $emailB = filter_var($e_mail, FILTER_SANITIZE_EMAIL);
+
+  		if ((filter_var($emailB, FILTER_VALIDATE_EMAIL)==false) || ($emailB!=$email))
+  		{
+  			$wszystko_OK=false;
+  			$_SESSION['e_email']="Podaj poprawny adres e-mail!";
+  		}
+
+
   $haslo1=$_POST['pass1'];
   $haslo2=$_POST['pass2'];
-  $e_mail=$_POST['email'];
+
+
   if($haslo1!=$haslo2)
   {$rejestracja=false;
    $_SESSION['haslo_blad']="Hasła się róznią!!!";
   }
-
   $haslo_hash=password_hash($haslo1, PASSWORD_DEFAULT);
+
+  if (!isset($_POST['regulamin']))
+  		{
+  			$wszystko_OK=false;
+  			$_SESSION['e_regulamin']="Potwierdź akceptację regulaminu!";
+  		}
+
 
   require_once"./connect.php";
   mysqli_report(MYSQLI_REPORT_STRICT);
@@ -43,22 +66,15 @@ if(isset($_POST['email']))
            $_SESSION['e_nick']="Ten nick już jest zajęty.Wybierz inny.";
           }
 
-          $sekret = "6LftVaYUAAAAAIVz17e8TG3xIXFkbko9hridOu2E";
-          $sprawdz = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&responce='.$_POST['g-recaptcha-response']);
-          $odp=json_decode($sprawdz);
 
-          if($odp->success){echo "jest ok!";}
-          else
-          {$rejestracja=false;
-           $_SESSION['e_bot']="Potwierdź że jesteś człowiekiem";
-          }
+
 
           if ($rejestracja==true)
           {
             if(mysqli_query($polaczenie,"insert into users values(null,'$nick','$haslo_hash','$e_mail',0)"))
             {
               $_SESSION['udana_rejestracja']==true;
-              header("Location: ./udana_rejestracja.php");
+              header('location: ./udana_rejestracja.php');
             }
             else
             {
@@ -88,20 +104,21 @@ if(isset($_POST['email']))
     <meta charset="utf-8">
     <title>Załóż konto</title>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<link rel="stylesheet" href="./plik2.css">
   </head>
   <body>
     <form  method="post">
-      Login: <br> <input type="text" name="nick" maxlength="20" pattern="[A-Za-z0-9]+" title="nick może się składać tylko z liter i cyfr. Nie używaj polskich znaków." required> <br>
+      Login: <br> <input type="text" name="nick" maxlength="20" > <br>
       <?php
       if(isset($_SESSION['e_nick']))
       {
          echo '<div class="error">'.$_SESSION['e_nick'].'</div>';
-         unset($_SESSION['nick']);
+         unset($_SESSION['e_nick']);
        }
        ?>
 
-      Hasło: <br> <input type="password" name="pass1" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}" title="minimum 8 znakow, minimum 1 duza litera, minimum 1 mala litera, minimum 1 cyfra" required> <br>
+      Hasło: <br> <input type="password" name="pass1" > <br>
         <?php
         if(isset($_SESSION['haslo_blad']))
         {
@@ -111,9 +128,9 @@ if(isset($_POST['email']))
 
          ?>
 
-      Powtórz hasło: <br> <input type="password" name="pass2" required> <br>
+      Powtórz hasło: <br> <input type="password" name="pass2" > <br>
 
-      E-mail: <br> <input type="text" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required> <br>
+      E-mail: <br> <input type="text" name="email" > <br>
         <?php
         if(isset($_SESSION['e_email']))
         {
@@ -124,15 +141,7 @@ if(isset($_POST['email']))
          ?>
       <input type="checkbox" name="regulamin" required> Akceptuje regulamin <br>
 
-     <div class="g-recaptcha" data-sitekey="6LftVaYUAAAAAHmsR6DBJCurAOjQ0XeSIBNQyZZS"></div> <br>
-      <?php
-        if(isset($_SESSION['e_bot']))
-      {
-         echo '<div class="error">'.$_SESSION['e_bot'].'</div>';
-         unset($_SESSION['e_bot']);
-       }
 
-       ?>
 
       <input type="submit" name="" value="zarejestruj się">
 
