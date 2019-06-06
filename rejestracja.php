@@ -1,4 +1,6 @@
 <?php session_start();
+
+
 if(isset($_POST['email']))
 {
   $rejestracja=true;
@@ -75,7 +77,7 @@ if(isset($_POST['email']))
             }
             else
             {
-              throw new Exception(mysqli_connect_error($polaczenie));
+              throw new Exception($polaczenie->error);
             }
 
           }
@@ -85,6 +87,7 @@ if(isset($_POST['email']))
   catch(Exception $error)
 {
       echo "Błąd serwera!";
+      echo $error;
       exit();
 
   }

@@ -15,8 +15,9 @@ if($polaczenie=mysqli_connect($host,$db_user,$db_password,$db_name))
 {
   $login1 = $_POST['login'];
   $haslo1 = $_POST['haslo'];
+  $login1 = $polaczenie->real_escape_string(htmlentities($_POST['login']));
+  $haslo1 = $polaczenie->real_escape_string(htmlentities($_POST['haslo']));
 
-  $login1=htmlentities($login1, ENT_QUOTES, "UTF-8");
 
 
   $sql="select * from users where login = '$login1' ";
@@ -42,7 +43,7 @@ if($polaczenie=mysqli_connect($host,$db_user,$db_password,$db_name))
 
         }
         else
-         { $_SESSION['blad']='<span style="color:red">Nieprawidłowy login lub hasło!</span>';
+         { $_SESSION['blad']='<span style="color:red">Nieprawidłowy login (lub hasło)!</span>';
            header("Location: ./index.php");
           }
 
