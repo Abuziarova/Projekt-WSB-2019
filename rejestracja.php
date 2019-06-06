@@ -5,24 +5,21 @@ if(isset($_POST['email']))
   $nick=$_POST['nick'];
 
   if (ctype_alnum($nick)==false)
-  		{
-  			$wszystko_OK=false;
-  			$_SESSION['e_nick']="Nick może składać się tylko z liter i cyfr (bez polskich znaków)";
-  		}
+  {
+  $rejestracja=false;
+  $_SESSION['e_nick']="Nick może składać się tylko z liter i cyfr (bez polskich znaków)";
+  }
+
   $e_mail=$_POST['email'];
   $emailB = filter_var($e_mail, FILTER_SANITIZE_EMAIL);
-
-  		if ((filter_var($emailB, FILTER_VALIDATE_EMAIL)==false) || ($emailB!=$email))
-  		{
-  			$wszystko_OK=false;
-  			$_SESSION['e_email']="Podaj poprawny adres e-mail!";
-  		}
-
+  if ((filter_var($emailB, FILTER_VALIDATE_EMAIL)==false) || ($emailB!=$e_mail))
+  {
+  $rejestracja=false;
+  $_SESSION['e_email']="Podaj poprawny adres e-mail!";
+  }
 
   $haslo1=$_POST['pass1'];
   $haslo2=$_POST['pass2'];
-
-
   if($haslo1!=$haslo2)
   {$rejestracja=false;
    $_SESSION['haslo_blad']="Hasła się róznią!!!";
@@ -30,10 +27,10 @@ if(isset($_POST['email']))
   $haslo_hash=password_hash($haslo1, PASSWORD_DEFAULT);
 
   if (!isset($_POST['regulamin']))
-  		{
-  			$wszystko_OK=false;
-  			$_SESSION['e_regulamin']="Potwierdź akceptację regulaminu!";
-  		}
+  {
+  $rejestracja=false;
+  $_SESSION['e_regulamin']="Potwierdź akceptację regulaminu!";
+  }
 
 
   require_once"./connect.php";
@@ -48,7 +45,7 @@ if(isset($_POST['email']))
         }
         else
         {
-
+            //sprawdzamy czy istnieje już konto,przywiązane do tego e-maila
           $wynik = mysqli_query($polaczenie,"select id from users where email='$e_mail'");
           if(!$wynik)throw new Exception(mysqli_connect_error($polaczenie));
           $ilosc_email=mysqli_num_rows($wynik);
@@ -57,7 +54,7 @@ if(isset($_POST['email']))
            $_SESSION['e_email']="Już istnieje konto,przywiązane do tego e-maila";
           }
 
-
+            //sprawdzamy czy ten nick nie jest już zajęty
           $wynik = mysqli_query($polaczenie,"select id from users where login='$nick'");
           if(!$wynik)throw new Exception(mysqli_connect_error($polaczenie));
           $ilosc_nick=mysqli_num_rows($wynik);
@@ -73,7 +70,7 @@ if(isset($_POST['email']))
           {
             if(mysqli_query($polaczenie,"insert into users values(null,'$nick','$haslo_hash','$e_mail',0)"))
             {
-              $_SESSION['udana_rejestracja']==true;
+              $_SESSION['udana_rejestracja']=true;
               header('location: ./udana_rejestracja.php');
             }
             else
@@ -103,9 +100,7 @@ if(isset($_POST['email']))
   <head>
     <meta charset="utf-8">
     <title>Załóż konto</title>
-
-
-<link rel="stylesheet" href="./plik2.css">
+    <link rel="stylesheet" href="./plik2.css">
   </head>
   <body>
     <form  method="post">
@@ -139,7 +134,15 @@ if(isset($_POST['email']))
          }
 
          ?>
-      <input type="checkbox" name="regulamin" required> Akceptuje regulamin <br>
+      <input type="checkbox" name="regulamin"> Akceptuje regulamin <br>
+      <?php
+      if(isset($_SESSION['e_regulamin']))
+      {
+         echo '<div class="error">'.$_SESSION['e_regulamin'].'</div>';
+         unset($_SESSION['e_regulamin']);
+       }
+
+       ?>
 
 
 
