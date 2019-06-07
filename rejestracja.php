@@ -1,5 +1,10 @@
 <?php session_start();
+if(isset($_GET['activate']))
+{$_SESSION['udana_rejestracja']=true;
 
+header("location: ./udana_rejestracja.php");
+exit();
+}
 
 if(isset($_POST['email']))
 {
@@ -72,7 +77,30 @@ if(isset($_POST['email']))
           {
             if(mysqli_query($polaczenie,"insert into users values(null,'$nick','$haslo_hash','$e_mail',0)"))
             {
+
+              $email_template="./activate.html";
+              $wiadomosc=file_get_contents($email_template);
+              $wiadomosc=str_replace("[login]",$nick,$wiadomosc);
+              $wiadomosc=str_replace("[key]",$haslo_hash,$wiadomosc);
+              $wiadomosc=str_replace("[url]","http://".$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'],$wiadomosc);
+              $naglowek='From: julia@firstprojekt.cba.pl' . "\r\n" .
+              'Reply-To: julia@firstprojekt.cba.pl' . "\r\n" .
+              'X-Mailer: PHP/' . phpversion();
+
+
+            if(mail($e_mail,"Aktywacja konta dla ".$nick,$wiadomosc,$naglowek))
+          {  echo "Wiadomość z kluczem aktywacyjnym została wysłana";
+            exit();}
+            else {
+              echo "błąd wysyłania maila";
+              exit();
+            }
+
+
+
+
               $_SESSION['udana_rejestracja']=true;
+
               header('location: ./udana_rejestracja.php');
             }
             else
