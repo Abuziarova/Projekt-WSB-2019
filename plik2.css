@@ -1,3 +1,102 @@
+body{
+margin: 0;
+padding: 0;
+background-image: url("./img/BackgroundB.jpg");
+background-size: cover;
+font-family: sans-serif;
+height: 100%;
+}
+
+.title
+{
+  text-align:center;
+}
+
+.title h1{
+  font-family: 'Open Sans', sans-serif;
+  color: #555;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 50px;
+  font-weight: 100;
+  letter-spacing: -3px;
+  text-shadow: #EDEDED 3px 2px 0;
+  position: relative;
+}
+
+.container{
+  width: 30%;
+  height: 500px	;
+  background: #fff;
+  padding: 40px;
+  margin: 60px auto 100px auto ;
+  border: 2px solid #fff;
+  box-shadow: 0 15px 40px rgba(0,0,0,.5);
+}
+
+.formbox{
+  width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+  height: 100px;
+  background: #fff
+}
+
+.formbox p {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  color: #a6af13;
+}
+
+.formbox input{
+  width: 100%;
+  margin-bottom: 20px;
+
+}
+
+.formbox input["type=text"],
+.formbox input["type=password"],{
+  border: none;
+  border-bottom: 2px solid #a6af13;
+  outline: none;
+  height: 40px;
+}
+.formbox input["type=text"]:focus,
+.formbox input["type=password"]:focus,{
+  border-bottom: 2px solid #262626;
+}
+
+.formbox input[type="submit"]{
+  border: none;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  background: #262626;
+  cursor: pointer;
+
+}
+.formbox input[type="submit"]:hover{
+  background: #a6af13;
+}
+
+.formbox input[type="checkbox"]{
+    display:none;
+}
+
+.formbox input[type="checkbox"]{
+    color:#262626;
+}
+
+.formbox input[type="checkbox"]{
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
 .error
 		{
 			color:red;
