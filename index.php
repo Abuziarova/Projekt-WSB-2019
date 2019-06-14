@@ -9,29 +9,35 @@ if((isset($_SESSION['zalogowany']))&&($_SESSION['zalogowany']==true))
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Stronka</title>
-    <link rel="stylesheet" href="./plik1.css">
+    <title>English for IT</title>
+    <link rel="stylesheet" href="./plik1.css" ss>
   </head>
   <body>
-
-    <form class="" action="./login.php" method="post">
-      <p>Login:</p><input type="text" name="login" pattern="[A-Za-z0-9]+" title="Używaj tylko litery i cyfry!" >
-      <p>Password:</p><input type="password" name="haslo" ><br><br>
+<div class="title"><h1>English for IT</h1></div>
+<div class="container">
+        <div class="left"></div>
+        <div class="right">
+          <div class="formbox">
+          <form class="" action="./login.php" method="post">
+            <p>Login:</p>
+            <input type="text" name="login" pattern="[A-Za-z0-9]+" placeholder="Your account login" title="Używaj tylko litery i cyfry!">
+            <p>Password:</p>
+            <input type="password" name="haslo" >
       <?php
    if(isset($_SESSION['blad']))
       echo $_SESSION['blad'];
-      ?><br>
-
+      ?>
 
       <input type="submit" name="" value="Sign in">
-      <hr>
-    <a href="rejestracja.php">Załóż konto!</a>
+      <a href="rejestracja.php">Załóż konto</a>
 
 
-   </form>
+          </form>
+        </div>
+      </div>
+    </div>
 
 
-    <h1>English for IT</h1>
 
   </body>
 </html>

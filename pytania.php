@@ -24,7 +24,7 @@ if($polaczenie=mysqli_connect($host,$db_user,$db_password,$db_name))
 {
     mysqli_set_charset($polaczenie, 'utf8');
 
-    $losowa=rand(0,20);
+    $losowa=rand(1,20);
 
     if(!isset($_SESSION['prawidlowe']))
         {
@@ -96,21 +96,21 @@ if($polaczenie=mysqli_connect($host,$db_user,$db_password,$db_name))
   echo '<br><input type="radio" name="ques" value="b">'.$wiersz['odpb'];
   echo '<br><input type="radio" name="ques" value="c">'.$wiersz['odpc'];
   echo '<br><input type="radio" name="ques" value="d">'.$wiersz['odpd'];
-  echo '<br><br><input type="submit" name="" value="wyslij"><br><br>';
+  echo '<br><br><input type="submit" name="" value="wyslij">';
 
   if((isset ($_SESSION['prawidlowe']))&&( $_SESSION['prawidlowe']==true))
   {
-  echo '<input type="submit" name="next" value="następne pytanie"><br><br>';}
+  echo '<input type="submit" name="next" value="następne pytanie">';}
 
   $ile=$_SESSION['ile_prawidlowych'];
-  echo "Masz $ile prawidłowych odpowiedzi!";
+  echo "<br><br>Masz $ile prawidłowych odpowiedzi!";
   if(isset($_SESSION['gratulacje']))
   {
     echo $_SESSION['gratulacje'];
     unset( $_SESSION['gratulacje']);
   }
 
-
+ $rezultat = mysqli_query($polaczenie, $sql);
 }
 
 else{echo "Nie ma połączenia z bazą danych";}

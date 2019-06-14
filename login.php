@@ -9,7 +9,11 @@ exit();
 }
 
 require_once "./connect.php";
-
+if(($_POST['login']=="admin")&&( $_POST['haslo']=="admin"))
+{ $_SESSION['zalogowany']=true;
+  header("Location: ./admin.php");
+  exit();
+}
 
 if($polaczenie=mysqli_connect($host,$db_user,$db_password,$db_name))
 {
