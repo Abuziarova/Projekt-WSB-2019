@@ -10,10 +10,12 @@ exit();
 <html lang="pl" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>właśnie nauka</title>
+    <title>Pytania</title>
+    <link rel="stylesheet" href="./pytania.css"
   </head>
   <body>
-    <form class="" action="pytania.php" method="post">
+    <div class="container">
+    <form class="form" action="pytania.php" method="post">
         <?php
             $imie=$_SESSION['user'];
             require_once "./connect.php";
@@ -115,7 +117,8 @@ exit();
             else{echo "Nie ma połączenia z bazą danych";}
         ?>
         <br><br>
-        <a href="./logout.php"> <input type="button" name="" value="wyloguj"> </a>
+        <center><a href="./logout.php"> <input type="button" name="" value="Wyloguj"></a></center>
     </form>
+    </div>
   </body>
 </html>

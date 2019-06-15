@@ -16,10 +16,16 @@ else {
  <html lang="pl" dir="ltr">
    <head>
      <meta charset="utf-8">
-     <title></title>
+     <title>Udana rejestracja</title>
+     <link rel="stylesheet" href="./udana_rejestracja.css">
    </head>
    <body>
-     <h1>Dziękujemy za rejestracje!</h1>
-     <h2>Możesz się zalogować na swoje konto </h2> <a href="./index.php">tutaj</a>
+     <div class="container">
+        <h1>Dziękujemy za rejestracje!</h1>
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Covered+By+Your+Grace" />
+         <h2>Teraz możesz rozpocząć naukę języka! </h2>
+         <center><img src="./img/okejka.jpg" align="middle"</img></center><br><br>
+         <center><a href="./index.php" >Powrót do loginu</a></center>
+       </div>
    </body>
  </html>

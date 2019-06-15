@@ -1,0 +1,36 @@
+body{
+margin: 0;
+padding: 0;
+background-image: url("./img/miastob.jpg");
+background-size: cover;
+font-family: sans-serif;
+}
+
+a{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    color: #262626;
+
+}
+
+.container{
+  width: 30%;
+  height: 450px;
+  background: #fff;
+  padding: 40px;
+  margin: 60px auto 100px auto ;
+  border: 2px solid #fff;
+  box-shadow: 0 15px 40px rgba(0,0,0,.5);
+}
+
+
+table {
+	background: #cde;
+	font-family: sans-serif;
+	font-size: 12px;
+	border: 1px solid #cde;
+	padding: 2px;
+	border-spacing: 0 1px;
+	text-align: left;
+}

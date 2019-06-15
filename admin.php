@@ -12,11 +12,12 @@ exit();
   <head>
     <meta charset="utf-8">
     <title>Strona admina</title>
+    <link rel="stylesheet" href="./admin.css">
   </head>
   <body>
-    <h2>Cześć,admin!</h2>
-    <br> <a href="./logout.php">Wyloguj się!</a>
-    <h3>Baza użytkowników:</h3>
+    <div class=container>
+    <h1>Witaj, Administratorze</h1>
+    <h2>Baza użytkowników:</h2>
     <table>
     <th>id</th>
     <th>login</th>
@@ -78,6 +79,8 @@ WIERSZ;
     mysqli_close($polaczenie);
     ?>
     <input type="submit" name="submit" value="usuń">
-    </form>
+    </form><br>
+    <center><a href="./logout.php">Wyloguj się</a></center>
+    </div>
   </body>
 </html>
