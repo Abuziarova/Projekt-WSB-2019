@@ -83,7 +83,8 @@ if(isset($_POST['email']))
 
               // wysyłamy maila
             if(mail($e_mail,"Aktywacja konta dla ".$nick,$wiadomosc,$naglowek))
-            {  echo "Wiadomość z kluczem aktywacyjnym została wysłana";
+            {  echo '<link rel="Stylesheet" type="text/css" href="./plik2.css" />';
+            echo "'<h1>Wiadomość z kluczem aktywacyjnym została wysłana</h1>'";
             exit();
             }
             else {
