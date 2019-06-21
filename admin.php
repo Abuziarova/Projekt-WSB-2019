@@ -80,6 +80,51 @@ WIERSZ;
     ?>
     <input type="submit" name="submit" value="usuń">
     </form><br>
+<form class="" action="admin.php" method="post">
+  <fieldset>
+  <legend><h2>Dodać pytanie to bazy:</h2></legend>
+  Treść pytania:
+  <input type="text" name="pytanie"><br>
+  Odpowiedź a: <input type="text" name="odpa" value="" ><br>
+  Odpowiedź b: <input type="text" name="odpb" value=""><br>
+  Odpowiedź c: <input type="text" name="odpc" value=""><br>
+  Odpowiedź d: <input type="text" name="odpd" value=""><br>
+  Poprawna odpowiedź:
+  <input type="radio" name="true" value="a" checked="checked">
+  <input type="radio" name="true" value="b">
+  <input type="radio" name="true" value="c">
+  <input type="radio" name="true" value="d"><br>
+  <input type="submit" name="pytanie" value="wyslij">
+  <br>
+<?php
+if( (!empty($_POST['pytanie']))&&(!empty($_POST['odpa']))&&(!empty($_POST['odpb']))&&(!empty($_POST['odpc']))&&(!empty($_POST['odpd']))&&(!empty($_POST['true'])))
+{  if($polaczenie2=mysqli_connect($host,$db_user,$db_password,$db_name))
+   {mysqli_set_charset($polaczenie2, 'utf8');
+    $pytanie=$_POST['pytanie'];
+    $a=$_POST['odpa'];
+    $b=$_POST['odpb'];
+    $c=$_POST['odpc'];
+    $d=$_POST['odpd'];
+    $ans=$_POST['true'];
+    $sql3 = "INSERT INTO `pytania` (`id`, `tresc`, `odpa`, `odpb`, `odpc`, `odpd`, `answer`) VALUES (NULL,'$pytanie', '$a', '$b', '$c', '$d','$ans' )";
+    if(mysqli_query($polaczenie2,$sql3))
+    {
+      $_SESSION['dodane']="Pytanie dodane do bazy!";
+
+    }else{ echo "Niepoprawne zapytanie";}
+    mysqli_close($polaczenie2);
+   }else {echo "Nie ma połączenia z bazą";}
+
+}
+if(isset($_SESSION['dodane']))
+    {
+    echo $_SESSION['dodane'];
+    unset($_SESSION['dodane']);
+    }
+ ?>
+  </fieldset>
+</form>
+<br>
     <center><a href="./logout.php">Wyloguj się</a></center>
     </div>
   </body>
